@@ -16,8 +16,8 @@ To get started with this project, follow these steps:
 1. **Clone the repository:**
 
     ```sh
-    git clone https://github.com/oseni99/TheGaius.git
-    cd feedback
+    git clone https://github.com/oseni99/Subscription.git
+    cd subscription
     ```
 
 2. **Create and activate a virtual environment:**
