@@ -1,5 +1,6 @@
 from django.db import models
 from account.models import CustomUser
+from django.utils import timezone
 
 class Article(models.Model):
 
@@ -7,5 +8,6 @@ class Article(models.Model):
     content = models.TextField()
     date_posted = models.DateTimeField(auto_now_add=True)
     is_premium = models.BooleanField(verbose_name="Is This Premium?")
+    date_edited = models.DateTimeField(verbose_name="Edited Date", auto_now=True, auto_now_add=False)
 
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, max_length=15, null=True)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)

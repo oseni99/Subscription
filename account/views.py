@@ -6,7 +6,7 @@ from django.contrib.auth import login,logout
 from .forms import CreateUserForm
 
 def home_page(request):
-    return render(request, "account/index.html")\
+    return render(request, "account/index.html")
 
 
 def register(request):
