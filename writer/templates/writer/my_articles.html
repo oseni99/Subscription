@@ -19,6 +19,8 @@
     {% endif %}
     <br> <br>
   <a href="{% url "update-articles"  articles.id %}" class="btn btn-success">Update Article</a>
+  <br> <br>
+  <a href="{% url "delete-articles"  articles.id %}" class="btn btn-danger">Delete Article</a>
 </div>
   <br>
 {% endfor %} 

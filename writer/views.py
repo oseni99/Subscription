@@ -42,8 +42,10 @@ def my_articles(request):
 
 @login_required(login_url="login")
 def update_articles(request, pk):
-
-    article = Article.objects.get(id=pk)
+    try:
+        article = Article.objects.get(id=pk, user=request.user)
+    except:
+        return redirect("my-articles")
 
     form = ArticleForm(instance=article)  # using that specific id to make sure its not blank and the forms we trying to update/receive wuth the url gets in that form straight up 
     if request.method == "POST":
@@ -57,3 +59,14 @@ def update_articles(request, pk):
     return render(request, "writer/update_article.html", {
             "update_articles":form
         })
+
+@login_required(login_url="login")
+def delete_articles(request, pk):
+    try:
+        article = Article.objects.get(id=pk, user=request.user)
+    except:
+        return redirect("my-articles")
+    if request.method == "POST":
+        article.delete()
+        return redirect("my-articles")
+    return render(request, "writer/delete_article.html")
