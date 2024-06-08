@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from .forms import ArticleForm
+from .forms import ArticleForm, UpdateUserForm
 from .models import Article
 
 @login_required(login_url="login")
@@ -70,3 +70,17 @@ def delete_articles(request, pk):
         article.delete()
         return redirect("my-articles")
     return render(request, "writer/delete_article.html")
+
+
+@login_required(login_url="login")
+def account_management(request):
+    form = UpdateUserForm(instance=request.user)
+
+    if request.method == "POST":
+        form = UpdateUserForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect("writer-dashboard")
+    return render(request, "writer/account_management.html",{
+        "update_user":form
+        })
