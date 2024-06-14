@@ -17,7 +17,14 @@
     {% if articles.date_posted != articles.date_edited %}
         Edited on:  {{articles.date_edited}}
     {% endif %}
-    <br> <br>
+    <hr>
+    {% if articles.is_premium %}
+    ⭐<strong>PREMIUM</strong>
+        <br><br>
+        {% else %}
+        <strong>FREE</strong>
+        <br> <br>
+    {% endif %}
   <a href="{% url "update-articles"  articles.id %}" class="btn btn-success">Update Article</a>
   <br> <br>
   <a href="{% url "delete-articles"  articles.id %}" class="btn btn-danger">Delete Article</a>

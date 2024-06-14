@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from .forms import ArticleForm, UpdateUserForm
 from .models import Article
+from account.models import CustomUser
 
 @login_required(login_url="login")
 def writer_dashboard(request):
@@ -84,3 +85,11 @@ def account_management(request):
     return render(request, "writer/account_management.html",{
         "update_user":form
         })
+
+@login_required(login_url="login")
+def delete_account(request):
+    if request.method == "POST":
+        deleteUser = CustomUser.objects.get(email=request.user) #this gets the email of that particular user signed in 
+        deleteUser.delete()
+        return redirect("login")
+    return render(request, "writer/delete_account.html")

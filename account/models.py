@@ -16,7 +16,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_writer = models.BooleanField(default=False, verbose_name="Are you a writer?")
     
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = []  #set this later to first nd last name 
 
 
     objects = CustomUserManager()
