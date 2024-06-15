@@ -1,0 +1,30 @@
+{% extends "client/navbar.html" %}
+
+{% block content %}
+
+<br>
+
+{% for articles in client_articles %}
+
+<div class="container bg-white shadow-md p-5 form-layout">
+  <h3>{{articles.title}}</h3>
+  <br>
+  {{articles.content}}
+  <br> <br>
+  Posted: {{articles.date_posted}}
+  
+  <br> <br>
+    <hr>
+    {% if articles.is_premium %}
+    ⭐<strong>PREMIUM</strong>
+        <br><br>
+        {% else %}
+        <strong>FREE</strong>
+        <br> <br>
+    {% endif %}
+  
+</div>
+  <br>
+{% endfor %} 
+
+{% endblock content %}
