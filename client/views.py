@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from writer.models import Article
 from .models import Subscription
+from .forms import UpdateUserForm
+from account.models import CustomUser
+
 
 @login_required(login_url="login")
 def client_dashboard(request):
@@ -39,3 +42,33 @@ def browse_articles(request):
 @login_required(login_url="login")
 def locked_sub(request):
     return render(request, "client/locked_sub.html")
+
+
+@login_required(login_url="login")
+def subscription_plans(request):
+    return render(request, "client/subscription_plans.html")
+
+
+@login_required(login_url="login")
+def account_management(request):
+    form = UpdateUserForm(instance=request.user)
+    if request.method == "POST":
+        form = UpdateUserForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect ("client-dashboard")
+    return render(request,"client/account_management.html", {
+        "update_user":form
+        })        
+
+
+
+@login_required(login_url="login")
+def account_deletion(request):
+    if request.method == "POST":
+        my_profile = CustomUser.objects.get(email=request.user)
+        my_profile.delete()
+        return redirect("login")
+    return render(request, "client/delete_account.html")
+
+        
