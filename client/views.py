@@ -71,4 +71,33 @@ def account_deletion(request):
         return redirect("login")
     return render(request, "client/delete_account.html")
 
+
+@login_required(login_url="login")
+def create_sub(request,subID,plan):
+    custom_user = CustomUser.objects.get(email=request.user)
+
+    first_name = custom_user.first_name
+    last_name = custom_user.last_name
+    full_name = first_name + " " + last_name
+
+    select_sub_plan = plan 
+    if select_sub_plan == "basic":
+        sub_cost = "4.99"
+    elif select_sub_plan == "premium":
+        sub_cost = "9.99"
+
+#after paypal saves it to its own db its best to be able to get it to link to django also 
+
+    subscription = Subscription.objects.create(
+        subscriber_name = full_name,
+        subscriber_plan = select_sub_plan,
+        subscriber_cost = sub_cost,
+        paypal_sub_id  = subID,
+        is_active = True,
+        user = request.user
+        )
+    return render(request,"client/create_sub.html",{
+        "sub_plan":select_sub_plan
+        })
+
         

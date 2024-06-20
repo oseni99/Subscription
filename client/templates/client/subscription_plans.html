@@ -37,12 +37,12 @@
             });
           },
           onApprove: function (data, actions) {
-            alert(data.subscriptionID); // You can add optional success message for the subscriber here
+           var currentUrl = '/client/create-sub/' + data.subscriptionID + '/basic'
+           window.open(currentUrl,'_self')
           },
         })
         .render("#paypal-button-container-P-9H075505SH5275026MZWR3RQ"); // Renders the PayPal button
     </script>
-    <br>
   </div>
   
   <div class="container bg-white shadow-md p-5 form-layout text-center">
@@ -70,7 +70,8 @@
             });
           },
           onApprove: function (data, actions) {
-            alert(data.subscriptionID); // You can add optional success message for the subscriber here
+            var currentUrl = '/client/create-sub/' + data.subscriptionID + '/premium'
+           window.open(currentUrl,'_self')
           },
         })
         .render("#paypal-button-container-P-4C0248569P450714CMZWSXQI"); // Renders the PayPal button
