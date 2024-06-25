@@ -1,9 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseBadRequest
 from writer.models import Article
 from .models import Subscription
 from .forms import UpdateUserForm
 from account.models import CustomUser
+from decimal import Decimal
 
 
 @login_required(login_url="login")
@@ -74,30 +76,35 @@ def account_deletion(request):
 
 @login_required(login_url="login")
 def create_sub(request,subID,plan):
-    custom_user = CustomUser.objects.get(email=request.user)
-
+    custom_user = get_object_or_404(CustomUser, email=request.user)
     first_name = custom_user.first_name
     last_name = custom_user.last_name
     full_name = first_name + " " + last_name
 
     select_sub_plan = plan 
     if select_sub_plan == "basic":
-        sub_cost = "4.99"
+        sub_cost = Decimal("4.99")
     elif select_sub_plan == "premium":
-        sub_cost = "9.99"
+        sub_cost = Decimal("9.99")
+    else:
+        return HttpResponseBadRequest("Invalid Susbscription Plan")
 
 #after paypal saves it to its own db its best to be able to get it to link to django also 
-
-    subscription = Subscription.objects.create(
-        subscriber_name = full_name,
-        subscriber_plan = select_sub_plan,
-        subscriber_cost = sub_cost,
-        paypal_sub_id  = subID,
-        is_active = True,
-        user = request.user
-        )
+#whenever you try to create to the db try and alwsys use a try and except to be able to ctach errors related 
+    try:
+        subscription = Subscription.objects.create(
+            subscriber_name = full_name,
+            subscriber_plan = select_sub_plan,
+            subscriber_cost = sub_cost,
+            paypal_sub_id  = subID,
+            is_active = True,
+            user = request.user
+            )
+    except Exception as e:
+        return HttpResponseBadRequest(f"An error has occured at: {e}")
+        
     return render(request,"client/create_sub.html",{
-        "sub_plan":select_sub_plan
-        })
+            "sub_plan":select_sub_plan
+            })
 
         
