@@ -1,5 +1,4 @@
-{% load static %}
-{% load crispy_forms_tags %}
+{% load static %} {% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -11,19 +10,22 @@
       type="text/css"
       href="https://bootswatch.com/5/lux/bootstrap.min.css"
     />
-    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/styles.css' %}"
+    />
   </head>
   <body>
-    <br>
-    <div class="container bg-white shadow md p-5 form_layout">
+    <br />
+    <div class="container bg-white shadow md p-5 form-layout">
       <h1>Register</h1>
-      <br>
+      <br />
       <form action="" method="post">
-        {% csrf_token %} 
-        {{registered_form | crispy}}
+        {% csrf_token %} {{registered_form | crispy}}
         <button type="submit" class="btn btn-success">Submit</button>
       </form>
     </div>
-    <br>
+    <br />
   </body>
 </html>
