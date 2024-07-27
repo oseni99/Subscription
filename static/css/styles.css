@@ -1,10 +1,9 @@
-
-body{
-    background-color: #f0f0f0;
-    overflow-x: hidden;
+body {
+  background-color: #f0f0f0;
+  overflow-x: hidden;
 }
 
-.form-layout{
-    width: 500px;
-    border-radius: 20px;
+.form-layout {
+  width: 500px;
+  border-radius: 20px;
 }
