@@ -22,9 +22,8 @@
   <button type="button" class="btn btn-success"><a href="{% url "subscription-plans" %}">>>&nbsp;Check Subscription Plans</a></button>
 
 </div>
-<br>
-<div class="container bg-white shadow-md p-5 form-layout">
-    <a href="{% url "client-delete" %}" class="btn btn-danger">Delete Account </a>
+<br><div class="container bg-white shadow-md p-5 form-layout d-flex justify-content-center mb-4">
+  <a href="{% url 'client-delete' %}" class="btn btn-danger">Delete Account</a>
 </div>
 
 {% endblock content %}
