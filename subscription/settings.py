@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     "account",
     "client",
     "writer",
+    "unfold",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -36,6 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "crispy_forms",
     "crispy_bootstrap5",
+    "storages",
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -144,3 +146,33 @@ EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 
 DEFAULT_FROM_EMAIL = os.getenv("EMAIL_HOST_USER")
+
+
+# Amazon S3 bucket customization
+
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
+# AWS_DEFAULT_ACL = "public-read"
+AWS_S3_FILE_OVERWRITE = False
+
+STORAGES = {
+    # MEDIA FILES MANAGHEMEMT
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+        "LOCATION": "media",
+        "FILE_OVERWRITE": False,
+        "BUCKET_NAME": AWS_STORAGE_BUCKET_NAME,
+        # "DEFAULT_ACL": AWS_DEFAULT_ACL,
+        "AWS_S3_OBJECT_PARAMETERS": {
+            "CacheControl": "max-age=86400",
+        },
+        "AWS_S3_REGION_NAME": "us-east-2",
+    },
+    # for the css and js files
+    "staticfiles": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+    },
+}
+
+AWS_S3_CUSTOM_DOMAIN = "%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
