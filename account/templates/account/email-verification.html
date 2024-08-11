@@ -1,0 +1,10 @@
+
+
+{% autoescape off %}
+
+Hi, Please verify your account below:
+
+http://{{current_site}}{% url "email_verification" uidb64=uid token=token %}
+
+{% endautoescape %}
+

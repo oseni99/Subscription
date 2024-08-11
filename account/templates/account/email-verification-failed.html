@@ -1,0 +1,37 @@
+{% load static %} 
+<html lang="en">
+  <head>
+    <title>GAIUS THOUGHTS | Email Verification</title>
+
+    <meta charset="utf-8" />
+
+    <meta
+      name="viewport"
+      content="width-device-width, initial-scale=1, maximum-scale=1"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://bootswatch.com/5/lux/bootstrap.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/styles.css' %}"
+    />
+  </head>
+
+  {% block content %}
+  <br />
+  <div class="container bg-white shadow md p-5 form-layout">
+    <h4>Account Not Verified</h4>
+      <hr>
+    <p>
+      We're sorry to hear that your account isn't verified yet. Please check your email for the verification link. If you haven't received it, please make sure to check your spam folder. If you still haven't received the verification link, please click the button below to resend it. 
+    </p>
+    <a href="{% url 'home' %}">Go back to home</a>
+
+  </div>
+  {% endblock content %}

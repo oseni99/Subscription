@@ -44,4 +44,25 @@ urlpatterns = [
         ),
         name="password_reset_complete",
     ),
+    # Email verification urls managemen
+    path(
+        "email_verification/<uidb64>/<token>/",
+        views.email_verification,
+        name="email_verification",
+    ),
+    path(
+        "email_verification_sent",
+        views.email_verification_sent,
+        name="email_verification_sent",
+    ),
+    path(
+        "email_verification_success",
+        views.email_verification_successful,
+        name="email_verification_success",
+    ),
+    path(
+        "email_verification_failed",
+        views.email_verification_failed,
+        name="email_verification_failed",
+    ),
 ]
