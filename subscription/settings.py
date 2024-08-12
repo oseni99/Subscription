@@ -19,9 +19,9 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False  # turn on debug in development
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['subscriptionapp.onrender.com','*']
 
-# CSRF_TRUSTED_ORIGINS =  []
+# CSRF_TRUSTED_ORIGINS =  ['https://subscriptionapp.onrender.com']
 
 # Application definition
 
